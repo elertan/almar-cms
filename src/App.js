@@ -1,24 +1,36 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header1 from "./items/Header1";
+import Header2 from "./items/Header2";
+
+const items = [
+  {
+    type: "HEADER_1",
+    data: {
+      title: "Welkom!"
+    }
+  },
+  {
+    type: "HEADER_2",
+    data: {
+      title: "Ook welkom!"
+    }
+  }
+];
+
+const itemMapping = {
+  "HEADER_1": Header1,
+  "HEADER_2": Header2
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {items.map((item, i) => {
+        const Comp = itemMapping[item.type];
+        return <Comp key={i} {...item.data} />
+      })}
     </div>
   );
 }
